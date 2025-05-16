@@ -21,13 +21,12 @@ class HelloWorldServiceProvider extends ServiceProvider
 
         // Publish assets
         $this->publishes([
-            __DIR__.'/../resources/js' => public_path('vendor/helloworld/js'),
-            __DIR__.'/../resources/css' => public_path('vendor/helloworld/css'),
+            __DIR__ . '/../public' => public_path('vendor/helloworld'),
         ], 'helloworld-assets');
 
-        // Publish config
+        // Publish config to packages directory
         $this->publishes([
-            __DIR__.'/../config/pages.php' => config_path('helloworld.php'),
+            __DIR__.'/../config' => base_path('packages/Example/HelloWorld/config'),
         ], 'helloworld-config');
     }
 }
