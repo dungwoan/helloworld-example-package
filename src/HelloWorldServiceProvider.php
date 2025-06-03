@@ -19,14 +19,13 @@ class HelloWorldServiceProvider extends ServiceProvider
         // Load routes
         $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
 
-        // Publish assets
-        $this->publishes([
-            __DIR__ . '/../public' => public_path('vendor/helloworld'),
-        ], 'helloworld-assets');
+        // Load public config
+        $this->mergeConfigFrom(__DIR__.'/../config/publisher.php', 'example.helloworld');
 
-        // Publish config to packages directory
-        $this->publishes([
-            __DIR__.'/../config' => base_path('packages/Example/HelloWorld/config'),
-        ], 'helloworld-config');
+        // Publish files from config
+        $publishes = config('example.helloworld.publishes', []);
+        foreach ($publishes as $tag => $paths) {
+            $this->publishes($paths, $tag);
+        }
     }
 }
